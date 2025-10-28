@@ -19,7 +19,7 @@
 ```
 #### 1.2 操作系统内核（附录A）
 ![alt text](20251019154033.png)
-
+![alt text](a44c589a1ce8f990bf9681887afc1d7f.png)
 #### 1.3 编译与链接（附录A）
 ##### 1.3.1 编译器的编译命令
 ```SHELL
@@ -98,8 +98,7 @@ find dir -name "*.c" # 符号*是通配符
 ### Part 2 实验思考&实验细节
 #### 2.1 【thinking1.1】
 ![alt text](image-1.png)
-##### 2.1.0 C语言从预处理到运行的过程
-![alt text](gcc使用总结.png)
+
 ##### 2.1.1 gcc部分命令
 gcc：GNU编译器集合（GNU Compiler Collection）中的C编译器。它能够将C、C++等语言的源代码编译成目标代码（机器代码）。在x86工具链中，gcc通常被配置为生成x86架构的可执行文件。
 ```bash
@@ -168,7 +167,8 @@ ld：GNU链接器（GNU linker）。它将 __一个或多个目标文件（.o文
 readelf：用于显示ELF（Executable and Linkable Format）格式文件的信息。ELF是Unix-like系统上常见的二进制文件格式（可执行文件、目标文件、共享库等）。readelf可以显示ELF文件的头部、节区（sections）、段（segments）、符号表等详细信息。
 __其中ELF文件包括：目标文件（.o）、可执行文件和 共享对象文件__
 ```bash
--h #查看header
+readelf -h 文件 #查看文件的header，注意不能是目录
+readelf --help  #查看readelf相关命令
 ```
 ![alt text](image-7.png)
 
@@ -202,12 +202,12 @@ gcc  helloworld.c -o h
 <mark>
 有时间的话，可以继续深入了解一下。把mips-linux-gnu-gcc 预处理、编译、链接得到的可执行文件反编译，并和h反编译之后的file1.txt文件作比较。</mark>
 
-
 ![alt text](image-12.png)
-
+##### *2.1.6 C语言从预处理到运行的过程
+![alt text](gcc使用总结.png)
 ####   2.2【thinking1.2】& Makefile的解读和使用
 ![alt text](image-13.png)
-【曾经的问题】采用了下面各种方法找不到target目录，所以这个thinking先pass。
+##### 2.2.1 【曾经的问题】采用了下面各种方法找不到target目录，所以这个thinking先pass。
 【现在的回答】target目录是执行make命令后生成的。如执行根目录的Makefile文件时，for循环会递归到各个子目录下执行子目录下的Makefile命令（前提是Makefile文件里写了，如下图的make clean）。
 ![alt text](image-19.png)
 ```bash
@@ -221,6 +221,17 @@ make clean
 make test lab=x_y(x_y序列号tree之后查找，有的才能用，没有的会报错，导致无法生成target文件)
 make run
 ```
+##### 2.2.2 一些实验细节
+![alt text](image-23.png)
+![alt text](image-24.png)
+
+可以看出readelf是DYN文件
+>1. 什么是PIE？
+PIE（Position-Independent Executable）是一种特殊类型的可执行文件，其代码和数据的地址在加载时随机化。这意味着每次运行程序时，它都会被加载到内存中的不同地址。这种技术是ASLR（地址空间布局随机化）的一部分，旨在增加攻击者利用内存损坏漏洞的难度。
+>2. PIE如何工作？
+PIE使用位置无关代码（PIC）技术，这与构建共享库时使用的技术相同。PIC代码使用相对寻址而不是绝对地址，因此它可以被加载到内存中的任何地址而无需修改。
+
+##### *2.2.3 ELF 是如何被载入到内存中并且被执行的？
 
 #### 2.3【thinking1.3】
 ![alt text](image-16.png)
