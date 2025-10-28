@@ -98,7 +98,7 @@ find dir -name "*.c" # 符号*是通配符
 ### Part 2 实验思考&实验细节
 #### 2.1 【thinking1.1】
 ![alt text](image-1.png)
-##### 2.1.0 思维导图
+##### 2.1.0 C语言从预处理到运行的过程
 ![alt text](gcc使用总结.png)
 ##### 2.1.1 gcc部分命令
 gcc：GNU编译器集合（GNU Compiler Collection）中的C编译器。它能够将C、C++等语言的源代码编译成目标代码（机器代码）。在x86工具链中，gcc通常被配置为生成x86架构的可执行文件。
@@ -171,7 +171,7 @@ __其中ELF文件包括：目标文件（.o）、可执行文件和 共享对象
 -h #查看header
 ```
 ![alt text](image-7.png)
-<mark>有点难做，暂时不做。</mark>
+
 
 ##### 2.1.4 objdump部分命令
 objdump：用于显示二进制文件的信息。它可以反汇编可执行文件、显示目标文件的节区内容、符号表等。objdump也可以用来查看文件的结构和反汇编代码。
@@ -224,7 +224,6 @@ make run
 
 #### 2.3【thinking1.3】
 ![alt text](image-16.png)
-
 ![alt text](a44c589a1ce8f990bf9681887afc1d7f.png)
 
 
@@ -240,7 +239,7 @@ pkill -f qemu-system-mipsel
 ![alt text](image-22.png)
 
 ##### 2.4.1 【exercise 1.4】
-print.c就是处理格式问题。具体的代码逻辑
+print.c就是处理格式问题。<mark>具体的代码逻辑稍后补上。</mark>
 
 
 #### <mark> Part 3 遗留问题</mark>
